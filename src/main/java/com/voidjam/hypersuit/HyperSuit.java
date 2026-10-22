@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public final class HyperSuit {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
-    public static final Supplier<ArmorMaterial> HYPER_MATERIAL = ARMOR_MATERIALS.register(
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> HYPER_MATERIAL = ARMOR_MATERIALS.register(
             "hyper_suit",
             () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
@@ -48,13 +49,13 @@ public final class HyperSuit {
     );
 
     public static final Supplier<ArmorItem> HYPER_HELMET = ITEMS.register("hyper_helmet",
-            () -> new ArmorItem(HYPER_MATERIAL.get(), ArmorItem.Type.HELMET, new net.minecraft.world.item.Item.Properties()));
+            () -> new ArmorItem(HYPER_MATERIAL, ArmorItem.Type.HELMET, new net.minecraft.world.item.Item.Properties()));
     public static final Supplier<ArmorItem> HYPER_CHESTPLATE = ITEMS.register("hyper_chestplate",
-            () -> new ArmorItem(HYPER_MATERIAL.get(), ArmorItem.Type.CHESTPLATE, new net.minecraft.world.item.Item.Properties()));
+            () -> new ArmorItem(HYPER_MATERIAL, ArmorItem.Type.CHESTPLATE, new net.minecraft.world.item.Item.Properties()));
     public static final Supplier<ArmorItem> HYPER_LEGGINGS = ITEMS.register("hyper_leggings",
-            () -> new ArmorItem(HYPER_MATERIAL.get(), ArmorItem.Type.LEGGINGS, new net.minecraft.world.item.Item.Properties()));
+            () -> new ArmorItem(HYPER_MATERIAL, ArmorItem.Type.LEGGINGS, new net.minecraft.world.item.Item.Properties()));
     public static final Supplier<ArmorItem> HYPER_BOOTS = ITEMS.register("hyper_boots",
-            () -> new ArmorItem(HYPER_MATERIAL.get(), ArmorItem.Type.BOOTS, new net.minecraft.world.item.Item.Properties()));
+            () -> new ArmorItem(HYPER_MATERIAL, ArmorItem.Type.BOOTS, new net.minecraft.world.item.Item.Properties()));
 
     public static final Supplier<CreativeModeTab> HYPER_TAB = CREATIVE_TABS.register("hyper_suit",
             () -> CreativeModeTab.builder()
