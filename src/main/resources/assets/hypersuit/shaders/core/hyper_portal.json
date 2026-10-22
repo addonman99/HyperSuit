@@ -1,15 +1,9 @@
 {
-  "blend": {
-    "func": "add",
-    "srcrgb": "srcalpha",
-    "dstrgb": "1-srcalpha"
-  },
   "vertex": "hyper_portal",
   "fragment": "hyper_portal",
-  "attributes": [],
   "samplers": [
-    { "name": "Sampler0" },
-    { "name": "Sampler1" }
+    {"name": "Sampler0"},
+    {"name": "Sampler1"}
   ],
   "uniforms": [
     {
