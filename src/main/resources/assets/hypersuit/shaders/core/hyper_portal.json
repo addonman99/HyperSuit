@@ -1,10 +1,8 @@
 {
   "vertex": "hyper_portal",
   "fragment": "hyper_portal",
-  "samplers": [
-    {"name": "Sampler0"},
-    {"name": "Sampler1"}
-  ],
+  "attributes": ["Position", "Color", "UV0"],
+  "samplers": [],
   "uniforms": [
     {
       "name": "ModelViewMat",
@@ -23,12 +21,6 @@
       "type": "float",
       "count": 1,
       "values": [0.0]
-    },
-    {
-      "name": "EndPortalLayers",
-      "type": "int",
-      "count": 1,
-      "values": [15]
     }
   ]
 }
