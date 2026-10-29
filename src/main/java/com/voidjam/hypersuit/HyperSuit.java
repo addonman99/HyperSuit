@@ -73,5 +73,6 @@ public final class HyperSuit {
         ARMOR_MATERIALS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_TABS.register(modEventBus);
+        modEventBus.addListener(DashPayload::registerPayloads);
     }
 }
