@@ -1,8 +1,8 @@
 package com.voidjam.hypersuit.client;
 
 import com.voidjam.hypersuit.DashPayload;
-import com.voidjam.hypersuit.SlowMoPayload;
 import com.voidjam.hypersuit.HyperSuit;
+import com.voidjam.hypersuit.SlowMoPayload;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,17 +15,24 @@ import net.neoforged.neoforge.network.PacketDistributor;
 public final class DashClientEvents {
     private static long slowMoDownAt = 0L;
     private static boolean editorOpened = false;
+    private static boolean flightAnimationLocked = false;
 
     private DashClientEvents() {}
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null) return;
+        if (mc.player == null || mc.level == null) {
+            flightAnimationLocked = false;
+            return;
+        }
 
         while (DashKeybinds.DASH.consumeClick()) {
             PacketDistributor.sendToServer(new DashPayload());
-            if (!mc.player.onGround()) mc.player.startFallFlying();
+            if (!mc.player.onGround()) {
+                flightAnimationLocked = true;
+                mc.player.startFallFlying();
+            }
         }
 
         boolean down = DashKeybinds.SLOWMO.isDown();
@@ -46,8 +53,13 @@ public final class DashClientEvents {
             editorOpened = false;
         }
 
-        if (mc.player.onGround() || mc.player.horizontalCollision) {
-            mc.player.stopFallFlying();
+        if (flightAnimationLocked) {
+            if (mc.player.onGround() || mc.player.horizontalCollision) {
+                flightAnimationLocked = false;
+                mc.player.stopFallFlying();
+            } else if (!mc.player.isFallFlying()) {
+                mc.player.startFallFlying();
+            }
         }
     }
 }
