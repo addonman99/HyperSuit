@@ -74,5 +74,6 @@ public final class HyperSuit {
         ITEMS.register(modEventBus);
         CREATIVE_TABS.register(modEventBus);
         modEventBus.addListener(DashPayload::registerPayloads);
+        modEventBus.addListener(SlowMoPayload::register);
     }
 }
